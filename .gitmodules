@@ -1,0 +1,3 @@
+[submodule "xdgcfg"]
+	path = xdgcfg
+	url = https://schlomp.space/tastytea/xdgcfg.git
