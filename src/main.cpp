@@ -22,10 +22,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <libconfig.h++>
-#include <basedir.h>
 #include <cstdlib>
 #include <unistd.h>
+#include <libconfig.h++>
+#include <basedir.h>
 #include "xdgcfg.hpp"
 #include "version.hpp"
 
@@ -34,7 +34,6 @@
 #else
     namespace fs = std::experimental::filesystem;
 #endif
-using std::cout;
 using std::cerr;
 using std::endl;
 
@@ -102,7 +101,7 @@ int main(int argc, char *argv[])
             if (out.is_open())
             {
                 string buf;
-                std::getline(in, buf);
+                std::getline(in, buf);  // Shebang
                 std::getline(in, buf);
                 if (buf.substr(0, 16).compare("//compilescript:") == 0)
                 {
@@ -141,5 +140,6 @@ int main(int argc, char *argv[])
         cerr << "usage: " << argv[0] << " file [arguments]\n";
         std::exit(1);
     }
+
     return 0;
 }
