@@ -1,4 +1,4 @@
-/*  This file is part of cppscript.
+/*  This file is part of compilescript.
  *  Copyright © 2018 tastytea <tastytea@tastytea.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,7 @@ fs::path cache_dir;
 void read_settings()
 {
     bool need_save = false;
-    xdgcfg config("cppscript.cfg");
+    xdgcfg config("compilescript.cfg");
     if (config.read() != 0)
     {
         config.write();
@@ -70,7 +70,7 @@ void read_settings()
         xdgHandle xdg;
         xdgInitHandle(&xdg);
         cache_dir = xdgCacheHome(&xdg);
-        cache_dir /= "cppscript";
+        cache_dir /= "compilescript";
         xdgWipeHandle(&xdg);
     }
     if (!fs::is_directory(cache_dir))
@@ -104,9 +104,9 @@ int main(int argc, char *argv[])
                 string buf;
                 std::getline(in, buf);
                 std::getline(in, buf);
-                if (buf.substr(0, 12).compare("//cppscript:") == 0)
+                if (buf.substr(0, 16).compare("//compilescript:") == 0)
                 {
-                    compiler_arguments = buf.substr(12);
+                    compiler_arguments = buf.substr(16);
                 }
                 else
                 {

@@ -1,20 +1,21 @@
-**cppscript** allows you to execute C++ files as scripts.
+**compilescript** allows you to execute files from compiled languages as
+scripts. By default it uses g++.
 
-It compiles the source file, stores the binary in `${XDG_CACHE_HOME}/cppscript/`
-and executes it.
+It compiles the source file, stores the binary in
+`${XDG_CACHE_HOME}/compilescript/` and executes it.
 
 It does compile the file every time at the moment.
 
 ## Usage
 
-Use `#!/usr/bin/env cppscript` as shebang and write the compiler arguments in
-the line below with the prefix: `//cppscript:`
+Use `#!/usr/bin/env compilescript` as shebang and write the compiler arguments
+in the line below with the prefix: `//compilescript:`
 
 ### Example
 
 ```C++
-#!/usr/bin/env cppscript
-//cppscript: -Wall -pedantic -Wextra
+#!/usr/bin/env compilescript
+//compilescript: -Wall -pedantic -Wextra
 
 #include <iostream>
 
@@ -29,13 +30,13 @@ int main(int argc, char *argv[])
 
 ## Configuration
 
-The configuration file is in `${XDG_CONFIG_HOME}/cppscript.cfg`.
+The configuration file is in `${XDG_CONFIG_HOME}/compilescript.cfg`.
 
 ### Example config
 
 ```CFG
 compiler = "g++";
-cache_dir = "/home/user/.cache/cppscript";
+cache_dir = "/home/user/.cache/compilescript";
 ```
 
 ## Install
@@ -53,7 +54,7 @@ cache_dir = "/home/user/.cache/cppscript";
 #### Get sourcecode
 
 Download the current
-[release](https://schlomp.space/tastytea/cppscript/releases) and copy
+[release](https://schlomp.space/tastytea/compilescript/releases) and copy
 [xdgcfg](https://schlomp.space/tastytea/xdgcfg) into `xdgcfg/`.
 
 If you clone from git, be sure to `git submodule init` and
