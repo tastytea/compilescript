@@ -29,7 +29,14 @@ int main(int argc, char *argv[])
 
 ## Configuration
 
+The configuration file is in `${XDG_CONFIG_HOME}/cppscript.cfg`.
 
+### Example config
+
+```CFG
+compiler = "g++";
+cache_dir = "/home/user/.cache/cppscript";
+```
 
 ## Install
 
@@ -37,7 +44,7 @@ int main(int argc, char *argv[])
 
 #### Dependencies
 
-* C++ compiler (tested: [gcc](https://gcc.gnu.org/) 6/7/8,
+* C++ compiler (tested: [gcc](https://gcc.gnu.org/) 5/6/7/8,
   [clang](https://llvm.org/) 3/5/6)
 * [cmake](https://cmake.org/) (at least 3.2)
 * [libxdg-basedir](http://repo.or.cz/w/libxdg-basedir.git) (tested: 1.2)
