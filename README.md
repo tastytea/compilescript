@@ -9,7 +9,7 @@ It does compile the file every time at the moment.
 ## Usage
 
 Use `#!/usr/bin/env compilescript` as shebang and write the compiler arguments
-in the line below with the prefix: `//compilescript:`
+in the line below with the prefix: `//compilescript:`.
 
 ### Example
 

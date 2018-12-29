@@ -100,6 +100,26 @@ pipeline:
     volumes:
       - /var/cache/debian-package-cache:/var/cache/apt/archives
 
+  clang3:
+    image: debian:stretch-slim
+    pull: true
+    when:
+      event: [push, pull_request]
+    environment:
+      - LANG=C.utf8
+      - CXX=clang++
+      - CXXFLAGS=-pipe -O2
+    commands:
+      - rm /etc/apt/apt.conf.d/docker-clean
+      - apt-get update -q
+      - apt-get install -qy clang cmake pkg-config
+      - apt-get install -qy libconfig++-dev libxdg-basedir-dev
+      - rm -rf build && mkdir -p build && cd build
+      - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+      - make VERBOSE=1
+    volumes:
+      - /var/cache/debian-package-cache:/var/cache/apt/archives
+
   clang5:
     image: debian:stretch-slim
     pull: true
