@@ -26,12 +26,12 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-bool need_save = false;
 string compiler = "g++";
 fs::path cache_dir;
 
 void read_settings()
 {
+    bool need_save = false;
     xdgcfg config("cppscript.cfg");
     if (config.read() != 0)
     {
@@ -111,11 +111,13 @@ int main(int argc, char *argv[])
             else
             {
                 cerr << "ERROR: Could not open file: " << source << endl;
+                std::exit(1);
             }
         }
         else
         {
             cerr << "ERROR: Could not open file: " << path << endl;
+            std::exit(1);
         }
 
         std::system((compiler + " " + source.string() + " " + compiler_arguments
@@ -125,6 +127,7 @@ int main(int argc, char *argv[])
     else
     {
         cerr << "usage: " << argv[0] << " file [arguments]\n";
+        std::exit(1);
     }
     return 0;
 }
