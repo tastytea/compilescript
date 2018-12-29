@@ -94,8 +94,8 @@ int main(int argc, char *argv[])
     }
 
     const fs::path original(argv[1]);
+    const fs::path source = cache_dir / original.filename();
     const fs::path binary = cache_dir / original.stem();
-    const fs::path source = binary.string() + ".cpp";
     string compiler_arguments;
 
     if (!fs::exists(binary) ||
