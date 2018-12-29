@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 #### Get sourcecode
 
 Download the current
-[release](https://schlomp.space/tastytea/whyblocked/releases) and copy
+[release](https://schlomp.space/tastytea/cppscript/releases) and copy
 [xdgcfg](https://schlomp.space/tastytea/xdgcfg) into `xdgcfg/`.
 
 If you clone from git, be sure to `git submodule init` and
