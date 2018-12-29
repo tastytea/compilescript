@@ -87,14 +87,21 @@ int main(int argc, char *argv[])
 {
     read_settings();
 
-    if (argc > 1)
+    if (argc <= 1)
     {
-        const fs::path path(argv[1]);
-        const fs::path binary = cache_dir / path.stem();
-        const fs::path source = binary.string() + ".cpp";
-        string compiler_arguments;
+        cerr << "usage: " << argv[0] << " file [arguments]\n";
+        return 1;
+    }
 
-        std::ifstream in(path);
+    const fs::path original(argv[1]);
+    const fs::path binary = cache_dir / original.stem();
+    const fs::path source = binary.string() + ".cpp";
+    string compiler_arguments;
+
+    if (!fs::exists(binary) ||
+        fs::last_write_time(original) > fs::last_write_time(binary))
+    {
+        std::ifstream in(original);
         if (in.is_open())
         {
             std::ofstream out(source);
@@ -127,19 +134,15 @@ int main(int argc, char *argv[])
         }
         else
         {
-            cerr << "ERROR: Could not open file: " << path << endl;
+            cerr << "ERROR: Could not open file: " << original << endl;
             std::exit(1);
         }
 
         std::system((compiler + " " + source.string() + " " + compiler_arguments
                      + " -o " + binary.string()).c_str());
-        execv(binary.c_str(), &argv[1]);
     }
-    else
-    {
-        cerr << "usage: " << argv[0] << " file [arguments]\n";
-        std::exit(1);
-    }
+
+    execv(binary.c_str(), &argv[1]);
 
     return 0;
 }

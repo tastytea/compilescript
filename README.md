@@ -2,9 +2,8 @@
 scripts. By default it uses g++.
 
 It compiles the source file, stores the binary in
-`${XDG_CACHE_HOME}/compilescript/` and executes it.
-
-It does compile the file every time at the moment.
+`${XDG_CACHE_HOME}/compilescript/` and executes it. If the binary in cache is
+newer than the source file, the compilation is skipped.
 
 ## Usage
 
