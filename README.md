@@ -1,5 +1,36 @@
 **cppscript** allows you to execute C++ files as scripts.
 
+It compiles the source file, stores the binary in `${XDG_CACHE_HOME}/cppscript/`
+and executes it.
+
+It does compile the file every time at the moment.
+
+## Usage
+
+Use `#!/usr/bin/env cppscript` as shebang and write the compiler arguments in
+the line below with the prefix: `//cppscript:`
+
+### Example
+
+```C++
+#!/usr/bin/env cppscript
+//cppscript: -Wall -pedantic -Wextra
+
+#include <iostream>
+
+using std::cout;
+
+int main(int argc, char *argv[])
+{
+    cout << "Hello world!\n";
+    cout << argv[1] << '\n';
+}
+```
+
+## Configuration
+
+
+
 ## Install
 
 ### From source

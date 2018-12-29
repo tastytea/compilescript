@@ -81,6 +81,7 @@ int main(int argc, char *argv[])
         const fs::path path(argv[1]);
         const fs::path binary = cache_dir / path.stem();
         const fs::path source = binary.string() + ".cpp";
+        string compiler_arguments;
 
         std::ifstream in(path);
         if (in.is_open())
@@ -90,6 +91,15 @@ int main(int argc, char *argv[])
             {
                 string buf;
                 std::getline(in, buf);
+                std::getline(in, buf);
+                if (buf.substr(0, 12).compare("//cppscript:") == 0)
+                {
+                    compiler_arguments = buf.substr(12);
+                }
+                else
+                {
+                    out << buf << endl;
+                }
                 while (!in.eof())
                 {
                     std::getline(in, buf);
@@ -108,9 +118,13 @@ int main(int argc, char *argv[])
             cerr << "ERROR: Could not open file: " << path << endl;
         }
 
-        std::system((compiler + " " + source.string()
+        std::system((compiler + " " + source.string() + " " + compiler_arguments
                      + " -o " + binary.string()).c_str());
-        execv(binary.c_str(), argv);
+        execv(binary.c_str(), &argv[1]);
+    }
+    else
+    {
+        cerr << "usage: " << argv[0] << " file [arguments]\n";
     }
     return 0;
 }
