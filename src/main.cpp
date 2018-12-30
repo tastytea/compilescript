@@ -22,6 +22,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <chrono>
+#include <system_error>
 #include <cstdlib>
 #include <unistd.h>
 #include <libconfig.h++>
@@ -36,9 +38,12 @@
 #endif
 using std::cerr;
 using std::endl;
+using std::chrono::system_clock;
+using std::chrono::hours;
 
 string compiler = "g++";
 fs::path cache_dir;
+int clean_after_hours = 30 * 24;
 
 void read_settings()
 {
@@ -57,6 +62,17 @@ void read_settings()
     else
     {
         cfg.add("compiler", libconfig::Setting::TypeString) = compiler;
+        need_save = true;
+    }
+
+    if (cfg.exists("clean_after_hours"))
+    {
+        cfg.lookupValue("clean_after_hours", clean_after_hours);
+    }
+    else
+    {
+        cfg.add("clean_after_hours",
+                libconfig::Setting::TypeInt) = clean_after_hours;
         need_save = true;
     }
 
@@ -83,14 +99,47 @@ void read_settings()
     }
 }
 
+void cleanup()
+{
+    system_clock::time_point now = system_clock::now();
+    for (const fs::directory_entry &entry
+         : fs::recursive_directory_iterator(cache_dir))
+    {
+        if (fs::is_regular_file(entry))
+        {
+            auto diff = now - fs::last_write_time(entry);
+            if (std::chrono::duration_cast<hours>(diff).count()
+                > clean_after_hours)
+            {
+                fs::path current_path = entry.path();
+                std::error_code e;
+
+                while (fs::remove(current_path, e))
+                {
+                    current_path = current_path.parent_path();
+                    if (current_path == cache_dir)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     read_settings();
 
     if (argc <= 1)
     {
-        cerr << "usage: " << argv[0] << " file [arguments]\n";
+        cerr << "usage: " << argv[0] << " [file|--cleanup] [arguments]\n";
         return 1;
+    }
+    if (string(argv[1]) == "--cleanup")
+    {
+        cleanup();
+        return 0;
     }
 
     const fs::path original = fs::canonical(argv[1]);

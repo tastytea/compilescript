@@ -3,7 +3,8 @@ scripts. By default it uses g++.
 
 It compiles the source file, stores the binary in
 `${XDG_CACHE_HOME}/compilescript/` and executes it. If the binary in cache is
-newer than the source file, the compilation is skipped.
+newer than the source file, the compilation is skipped. You can delete old cache
+files with `--cleanup`.
 
 ## Usage
 
@@ -35,6 +36,7 @@ The configuration file is in `${XDG_CONFIG_HOME}/compilescript.cfg`.
 
 ```CFG
 compiler = "g++";
+clean_after_hours = 720;
 cache_dir = "/home/user/.cache/compilescript";
 ```
 
