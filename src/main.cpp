@@ -93,10 +93,11 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    const fs::path original(argv[1]);
-    const fs::path source = cache_dir / original.filename();
+    const fs::path original = fs::canonical(argv[1]);
+    const fs::path source = cache_dir / original;
     const fs::path binary = (source.string() + ".bin");
     string compiler_arguments;
+    fs::create_directories(binary.parent_path());
 
     if (!fs::exists(binary) ||
         fs::last_write_time(original) > fs::last_write_time(binary))
