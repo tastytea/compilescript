@@ -46,13 +46,13 @@ string compiler = "g++";
 fs::path cache_dir;
 int clean_after_hours = 30 * 24;
 
-void read_settings()
+bool read_settings()
 {
     bool need_save = false;
     xdgcfg config("compilescript.cfg");
     if (config.read() != 0)
     {
-        config.write();
+        return false;
     }
     libconfig::Setting &cfg = config.get_cfg().getRoot();
 
@@ -98,6 +98,8 @@ void read_settings()
     {
         config.write();
     }
+
+    return true;
 }
 
 void cleanup()
@@ -128,7 +130,10 @@ void cleanup()
 
 int main(int argc, char *argv[])
 {
-    read_settings();
+    if (!read_settings())
+    {
+        return 1;
+    }
 
     if (argc <= 1)
     {
