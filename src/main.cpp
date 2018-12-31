@@ -158,9 +158,15 @@ int main(int argc, char *argv[])
             if (out.is_open())
             {
                 string buf;
-                std::getline(in, buf);  // Shebang
+
                 std::getline(in, buf);
-                if (buf.substr(0, 16).compare("//compilescript:") == 0)
+                if (!(buf.substr(0, 2) == "#!"))
+                {
+                    out << buf << endl;
+                }
+
+                std::getline(in, buf);
+                if (buf.substr(0, 16) == "//compilescript:")
                 {
                     compiler_arguments = buf.substr(16);
                 }
@@ -168,24 +174,26 @@ int main(int argc, char *argv[])
                 {
                     out << buf << endl;
                 }
+
                 while (!in.eof())
                 {
                     std::getline(in, buf);
                     out << buf << endl;
                 }
+
                 in.close();
                 out.close();
             }
             else
             {
                 cerr << "ERROR: Could not open file: " << source << endl;
-                std::exit(1);
+                return 1;
             }
         }
         else
         {
             cerr << "ERROR: Could not open file: " << original << endl;
-            std::exit(1);
+            return 1;
         }
 
         std::system((compiler + " " + source.string() + " " + compiler_arguments
