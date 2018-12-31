@@ -40,6 +40,7 @@ using std::cerr;
 using std::endl;
 using std::chrono::system_clock;
 using std::chrono::hours;
+using std::chrono::duration_cast;
 
 string compiler = "g++";
 fs::path cache_dir;
@@ -101,15 +102,13 @@ void read_settings()
 
 void cleanup()
 {
-    system_clock::time_point now = system_clock::now();
     for (const fs::directory_entry &entry
          : fs::recursive_directory_iterator(cache_dir))
     {
         if (fs::is_regular_file(entry))
         {
-            auto diff = now - fs::last_write_time(entry);
-            if (std::chrono::duration_cast<hours>(diff).count()
-                > clean_after_hours)
+            auto diff = system_clock::now() - fs::last_write_time(entry);
+            if (duration_cast<hours>(diff).count() > clean_after_hours)
             {
                 fs::path current_path = entry.path();
                 std::error_code e;
