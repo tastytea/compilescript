@@ -200,8 +200,13 @@ int main(int argc, char *argv[])
             return 1;
         }
 
-        std::system((compiler + " " + source.string() + " " + compiler_arguments
-                     + " -o " + binary.string()).c_str());
+        int ret = std::system((compiler + " " + source.string() + " "
+                      + compiler_arguments + " -o " + binary.string()).c_str());
+        if (ret != 0)
+        {
+            cerr << "ERROR: Compilation failed.\n";
+            return 1;
+        }
     }
 
     execv(binary.c_str(), &argv[1]);
