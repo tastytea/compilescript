@@ -42,6 +42,11 @@ cache_dir = "/home/user/.cache/compilescript";
 
 ## Install
 
+### Gentoo
+
+Gentoo ebuilds are available via my
+[repository](https://schlomp.space/tastytea/overlay).
+
 ### From source
 
 #### Dependencies
