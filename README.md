@@ -3,13 +3,14 @@ scripts. By default it uses g++.
 
 It compiles the source file, stores the binary in
 `${XDG_CACHE_HOME}/compilescript/` and executes it. If the binary in cache is
-newer than the source file, the compilation is skipped. You can delete old cache
-files with `--cleanup`.
+newer than the source file, the compilation is skipped.
 
 ## Usage
 
 Use `#!/usr/bin/env compilescript` as shebang and write the compiler arguments
 in the second line with the prefix: `//compilescript:`.
+
+You can delete old cache files with `--cleanup`.
 
 ### Example
 
@@ -30,7 +31,8 @@ int main(int argc, char *argv[])
 
 ## Configuration
 
-The configuration file is in `${XDG_CONFIG_HOME}/compilescript.cfg`.
+The configuration file is in `${XDG_CONFIG_HOME}/compilescript.cfg`. It will be
+generated on first run.
 
 ### Example config
 
