@@ -19,7 +19,7 @@ pipeline:
       - apt-get update -q
       - apt-get install -qy -t xenial g++-5
       - apt-get install -qy cmake pkg-config
-      - apt-get install -qy libconfig++-dev libxdg-basedir-dev
+      - apt-get install -qy libconfig++-dev libxdg-basedir-dev asciidoc
       - rm -rf build && mkdir -p build && cd build
       - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
       - make VERBOSE=1
@@ -37,7 +37,7 @@ pipeline:
       - rm /etc/apt/apt.conf.d/docker-clean
       - apt-get update -q
       - apt-get install -qy g++-6 cmake pkg-config
-      - apt-get install -qy libconfig++-dev libxdg-basedir-dev
+      - apt-get install -qy libconfig++-dev libxdg-basedir-dev asciidoc
       - apt-get install -qy dpkg-dev d-shlibs rpm file wget
       - rm -rf build && mkdir -p build && cd build
       - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
@@ -66,7 +66,7 @@ pipeline:
       - apt-get update -q
       - apt-get install -qy -t xenial g++-7
       - apt-get install -qy cmake pkg-config
-      - apt-get install -qy libconfig++-dev libxdg-basedir-dev
+      - apt-get install -qy libconfig++-dev libxdg-basedir-dev asciidoc
       - rm -rf build && mkdir -p build && cd build
       - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
       - make VERBOSE=1
@@ -93,7 +93,7 @@ pipeline:
       - apt-get update -q
       - apt-get install -qy -t xenial g++-8
       - apt-get install -qy cmake pkg-config
-      - apt-get install -qy libconfig++-dev libxdg-basedir-dev
+      - apt-get install -qy libconfig++-dev libxdg-basedir-dev asciidoc
       - rm -rf build && mkdir -p build && cd build
       - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
       - make VERBOSE=1
@@ -113,7 +113,7 @@ pipeline:
       - rm /etc/apt/apt.conf.d/docker-clean
       - apt-get update -q
       - apt-get install -qy clang cmake pkg-config
-      - apt-get install -qy libconfig++-dev libxdg-basedir-dev
+      - apt-get install -qy libconfig++-dev libxdg-basedir-dev asciidoc
       - rm -rf build && mkdir -p build && cd build
       - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
       - make VERBOSE=1
@@ -136,7 +136,7 @@ pipeline:
       - apt-get update -q
       - apt-get install -qy -t stretch-backports clang-5.0
       - apt-get install -qy cmake pkg-config
-      - apt-get install -qy libconfig++-dev libxdg-basedir-dev
+      - apt-get install -qy libconfig++-dev libxdg-basedir-dev asciidoc
       - rm -rf build && mkdir -p build && cd build
       - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
       - make VERBOSE=1
@@ -159,7 +159,7 @@ pipeline:
       - apt-get update -q
       - apt-get install -qy -t stretch-backports clang-6.0
       - apt-get install -qy cmake pkg-config
-      - apt-get install -qy libconfig++-dev libxdg-basedir-dev
+      - apt-get install -qy libconfig++-dev libxdg-basedir-dev asciidoc
       - rm -rf build && mkdir -p build && cd build
       - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
       - make VERBOSE=1

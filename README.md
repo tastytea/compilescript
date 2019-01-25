@@ -7,40 +7,7 @@ newer than the source file, the compilation is skipped.
 
 ## Usage
 
-Use `#!/usr/bin/env compilescript` as shebang and write the compiler arguments
-in the second line with the prefix: `//compilescript:`.
-
-You can delete old cache files with `--cleanup`.
-
-### Example
-
-```C++
-#!/usr/bin/env compilescript
-//compilescript: -Wall -pedantic -Wextra
-
-#include <iostream>
-
-using std::cout;
-
-int main(int argc, char *argv[])
-{
-    cout << "Hello world!\n";
-    cout << argv[1] << '\n';
-}
-```
-
-## Configuration
-
-The configuration file is in `${XDG_CONFIG_HOME}/compilescript.cfg`. It will be
-generated on first run.
-
-### Example config
-
-```CFG
-compiler = "g++";
-clean_after_hours = 720;
-cache_dir = "/home/user/.cache/compilescript";
-```
+Have a look at the [manpage](https://schlomp.space/tastytea/compilescript/src/branch/master/compilescript.1.adoc).
 
 ## Install
 

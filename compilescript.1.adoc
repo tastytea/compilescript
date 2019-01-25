@@ -1,0 +1,79 @@
+= compilescript(1)
+:Author:        tastytea
+:Email:         tastytea@tastytea.de
+:Date:          2019-01-25
+:Revision:      0.0.0
+:man source:    compilescript
+:man version:   {revision}
+:man manual:    General Commands Manual
+
+== NAME
+
+compilescript - allows you to execute files from compiled languages as scripts.
+
+== SYNOPSIS
+
+*compilescript* [_file_|_--cleanup_] [_arguments_]
+
+== DESCRIPTION
+
+compilescript allows you to execute files from compiled languages as scripts.
+By default it uses g++.
+
+It compiles the source file, stores the binary in
+`${XDG_CACHE_HOME}/compilescript/` and executes it. If the binary in cache is
+newer than the source file, the compilation is skipped.
+
+Use `#!/usr/bin/env compilescript` as shebang and write the compiler arguments
+in the second line with the prefix: `//compilescript:`.
+
+The configuration file is in `${XDG_CONFIG_HOME}/compilescript.cfg`. It will be
+generated on first run.
+
+== OPTIONS
+
+[format="csv",frame="none",grid="none",cols="2"]
+|======
+*--cleanup*,Delete old cache files.
+|======
+
+== EXAMPLE
+
+=== Example script
+
+[source,cpp]
+----
+#!/usr/bin/env compilescript
+//compilescript: -Wall -pedantic -Wextra
+
+#include <iostream>
+
+using std::cout;
+
+int main(int argc, char *argv[])
+{
+    cout << "Hello world!\n";
+    cout << argv[1] << '\n';
+}
+----
+
+=== Example config
+
+[source,conf]
+----
+compiler = "g++";
+clean_after_hours = 720;
+cache_dir = "/home/user/.cache/compilescript";
+----
+
+== FILES
+
+* Configuration file: `${XDG_CONFIG_HOME}/compilescript.cfg`
+* Cache: `${XDG_CACHE_HOME}/compilescript/`
+
+`${XDG_CONFIG_HOME}` is usually `~/.config` and `${XDG_DATA_HOME}` is usually
+`~/.cache`
+
+== REPORTING BUGS
+
+Bugtracker: https://schlomp.space/tastytea/compilescript/issues

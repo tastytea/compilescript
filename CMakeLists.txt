@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_CXX_FLAGS_DEBUG
-    "${CMAKE_CXX_FLAGS_DEBUG} -Wall -pedantic -Wextra -g -Og -fno-omit-frame-pointer")
+    "${CMAKE_CXX_FLAGS_DEBUG} -Wpedantic -Wall -Wextra -g -Og -fno-omit-frame-pointer")
 
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${LIBXDG_BASEDIR_INCLUDE_DIRS})
@@ -36,3 +36,13 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
                       "-lstdc++fs")
 install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+
+add_custom_command(OUTPUT "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1"
+                   WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
+                   DEPENDS "${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.1.adoc"
+                   COMMAND ${CMAKE_SOURCE_DIR}/build_manpage.sh
+                   ARGS ${PROJECT_VERSION})
+add_custom_target(run ALL
+                  DEPENDS "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1")
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1
+        DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
