@@ -174,6 +174,11 @@ int main(int argc, char *argv[])
                 {
                     compiler_arguments = buf.substr(16);
                 }
+                else if ((buf.substr(0, 15) == "#compilescript:") ||
+                         (buf.substr(0, 15) == ";compilescript:"))
+                {
+                    compiler_arguments = buf.substr(15);
+                }
                 else
                 {
                     out << buf << endl;
