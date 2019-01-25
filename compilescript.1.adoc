@@ -37,7 +37,7 @@ generated on first run.
 *--cleanup*,Delete old cache files.
 |======
 
-== EXAMPLE
+== EXAMPLES
 
 === Example script
 
