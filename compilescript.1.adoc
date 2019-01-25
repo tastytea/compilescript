@@ -32,9 +32,9 @@ generated on first run.
 
 == OPTIONS
 
-[format="csv",frame="none",grid="none",cols="2"]
+[format="csv",frame="none",grid="none"]
 |======
-*--cleanup*,Delete old cache files.
+*--cleanup*,Delete old cache files (older than +clean_after_hours+).
 |======
 
 == EXAMPLES
@@ -68,8 +68,11 @@ cache_dir = "/home/user/.cache/compilescript";
 
 == FILES
 
-* Configuration file: `${XDG_CONFIG_HOME}/compilescript.cfg`
-* Cache: `${XDG_CACHE_HOME}/compilescript/`
+[format="csv",frame="none",grid="none",cols=">,<"]
+|======
+Configuration file:,`${XDG_CONFIG_HOME}/compilescript.cfg`
+Cache:,`${XDG_CACHE_HOME}/compilescript/`
+|======
 
 `${XDG_CONFIG_HOME}` is usually `~/.config` and `${XDG_DATA_HOME}` is usually
 `~/.cache`
