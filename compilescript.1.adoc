@@ -74,7 +74,7 @@ Configuration file:,`${XDG_CONFIG_HOME}/compilescript.cfg`
 Cache:,`${XDG_CACHE_HOME}/compilescript/`
 |======
 
-`${XDG_CONFIG_HOME}` is usually `~/.config` and `${XDG_DATA_HOME}` is usually
+`${XDG_CONFIG_HOME}` is usually `~/.config` and `${XDG_CACHE_HOME}` is usually
 `~/.cache`
 
 == REPORTING BUGS
