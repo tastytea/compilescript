@@ -80,3 +80,5 @@ Cache:,`${XDG_CACHE_HOME}/compilescript/`
 == REPORTING BUGS
 
 Bugtracker: https://schlomp.space/tastytea/compilescript/issues
+
+E-mail: tastytea@tastytea.de
