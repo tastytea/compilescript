@@ -25,6 +25,8 @@ Gentoo ebuilds are available via my
 * [cmake](https://cmake.org/) (at least 3.2)
 * [libxdg-basedir](http://repo.or.cz/w/libxdg-basedir.git) (tested: 1.2)
 * [libconfig++](https://github.com/hyperrealm/libconfig) (tested: 1.5)
+* Optional:
+    * Manpage: [asciidoc](http://asciidoc.org/) (tested: 8.6)
 
 #### Get sourcecode
 
@@ -46,6 +48,10 @@ cmake ..
 make
 make install
 ```
+
+cmake options:
+* `-DCMAKE_BUILD_TYPE=Debug` for a debug build
+* `-DWITH_MAN=NO` to not compile the manpage
 
 ## Contributing
 

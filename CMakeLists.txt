@@ -37,12 +37,15 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
 
-add_custom_command(OUTPUT "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1"
-                   WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
-                   DEPENDS "${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.1.adoc"
-                   COMMAND ${CMAKE_SOURCE_DIR}/build_manpage.sh
-                   ARGS ${PROJECT_VERSION})
-add_custom_target(run ALL
-                  DEPENDS "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1")
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1
-        DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+set(WITH_MAN "YES" CACHE STRING "WITH_MAN defaults to \"YES\"")
+if (WITH_MANPAGE)
+    add_custom_command(OUTPUT "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1"
+                       WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
+                       DEPENDS "${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.1.adoc"
+                       COMMAND ${CMAKE_SOURCE_DIR}/build_manpage.sh
+                       ARGS ${PROJECT_VERSION})
+    add_custom_target(run ALL
+                      DEPENDS "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1")
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1
+            DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+endif()
