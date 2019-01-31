@@ -35,7 +35,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
                       "${LIBXDG_BASEDIR_LDFLAGS} ${LIBCONFIG_LDFLAGS}"
                       "-lstdc++fs")
 install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
 
 set(WITH_MAN "YES" CACHE STRING "WITH_MAN defaults to \"YES\"")
 if (WITH_MAN)
