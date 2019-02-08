@@ -42,7 +42,7 @@ using std::chrono::system_clock;
 using std::chrono::hours;
 using std::chrono::duration_cast;
 
-string compiler = "g++";
+string compiler = "g++ -x c++";
 fs::path cache_dir;
 int clean_after_hours = 30 * 24;
 

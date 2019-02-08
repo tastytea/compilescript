@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.2)
 project(compilescript
-        VERSION 0.3.4
+        VERSION 0.3.5
         LANGUAGES CXX
 )
 

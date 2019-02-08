@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 
 [source,conf]
 ----
-compiler = "g++";
+compiler = "g++ -x c++";
 clean_after_hours = 720;
 cache_dir = "/home/user/.cache/compilescript";
 ----
