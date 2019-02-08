@@ -50,10 +50,7 @@ bool read_settings()
 {
     bool need_save = false;
     xdgcfg config("compilescript.cfg");
-    if (config.read() != 0)
-    {
-        return false;
-    }
+    config.read();
     libconfig::Setting &cfg = config.get_cfg().getRoot();
 
     if (cfg.exists("compiler"))
