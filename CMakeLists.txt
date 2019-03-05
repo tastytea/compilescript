@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_CXX_FLAGS_DEBUG
-    "${CMAKE_CXX_FLAGS_DEBUG} -Wpedantic -Wall -Wextra -g -Og -fno-omit-frame-pointer")
+    "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Wpedantic -ftrapv -fsanitize=undefined -g -Og -fno-omit-frame-pointer")
 
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${LIBXDG_BASEDIR_INCLUDE_DIRS})
