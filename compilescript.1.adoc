@@ -30,6 +30,9 @@ in the second line with the prefix: `//compilescript:`.
 The configuration file is in `${XDG_CONFIG_HOME}/compilescript.cfg`. It will be
 generated on first run.
 
+The compiler invocation looks like this: <configured compiler> <source file>
+<compiler arguments> -o <binary>.
+
 == OPTIONS
 
 [format="csv",frame="none",grid="none"]
@@ -75,7 +78,7 @@ Cache:,`${XDG_CACHE_HOME}/compilescript/`
 |======
 
 `${XDG_CONFIG_HOME}` is usually `~/.config` and `${XDG_CACHE_HOME}` is usually
-`~/.cache`
+`~/.cache`.
 
 == REPORTING BUGS
 
