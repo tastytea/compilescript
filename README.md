@@ -32,12 +32,16 @@ Gentoo ebuilds are available via my
 
 Download the current
 [release](https://schlomp.space/tastytea/compilescript/releases) and copy
-[xdgcfg](https://schlomp.space/tastytea/xdgcfg) into `xdgcfg/`.
+[xdgcfg](https://schlomp.space/tastytea/xdgcfg) into `xdgcfg/`
 
-If you clone from git, be sure to `git submodule init` and
-`git submodule update` afterwards. See the [submodules article in the git book]
-(https://git-scm.com/book/en/v2/Git-Tools-Submodules#_cloning_submodules) for
-further info.
+or clone with git:
+
+```SH
+git clone https://schlomp.space/tastytea/compilescript.git
+cd compilescript
+git submodule init
+git submodule update
+```
 
 #### Compile
 
@@ -61,7 +65,7 @@ email to `tastytea`@`tastytea.de`.
 ## License & Copyright
 
 ```PLAIN
-Copyright © 2018 tastytea <tastytea@tastytea.de>.
+Copyright © 2018, 2019 tastytea <tastytea@tastytea.de>.
 License GPLv3: GNU GPL version 3 <https://www.gnu.org/licenses/gpl-3.0.html>.
 This program comes with ABSOLUTELY NO WARRANTY. This is free software,
 and you are welcome to redistribute it under certain conditions.
