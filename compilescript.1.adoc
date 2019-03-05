@@ -13,7 +13,7 @@ compilescript - allows you to execute files from compiled languages as scripts.
 
 == SYNOPSIS
 
-*compilescript* [_file_|_--cleanup_] [_arguments_]
+*compilescript* [_file_|_--cleanup_|_--version_] [_arguments_]
 
 == DESCRIPTION
 
