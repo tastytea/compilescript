@@ -28,7 +28,7 @@ https://schlomp.space/tastytea/overlay[repository].
 * http://repo.or.cz/w/libxdg-basedir.git[libxdg-basedir] (tested: 1.2)
 * https://github.com/hyperrealm/libconfig[libconfig++] (tested: 1.5)
 * Optional:
-    * Manpage: http://asciidoc.org/[asciidoc] (tested: 8.6)
+** Manpage: http://asciidoc.org/[asciidoc] (tested: 8.6)
 
 ==== Get sourcecode
 
