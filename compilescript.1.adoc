@@ -35,10 +35,11 @@ The compiler invocation looks like this: <configured compiler> <source file>
 
 == OPTIONS
 
-[format="csv",frame="none",grid="none"]
-|======
-*--cleanup*,Delete old cache files (older than +clean_after_hours+).
-|======
+[frame="none",grid="none"]
+|===
+|*--cleanup* | Delete old cache files (older than +clean_after_hours+).
+|*--version* | Print version, copyright and license.
+|===
 
 == EXAMPLES
 

@@ -1,5 +1,5 @@
 /*  This file is part of compilescript.
- *  Copyright © 2018 tastytea <tastytea@tastytea.de>
+ *  Copyright © 2018, 2019 tastytea <tastytea@tastytea.de>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@
 #else
     namespace fs = std::experimental::filesystem;
 #endif
+using std::cout;
 using std::cerr;
 using std::endl;
 using std::chrono::system_clock;
@@ -134,12 +135,21 @@ int main(int argc, char *argv[])
 
     if (argc <= 1)
     {
-        cerr << "usage: " << argv[0] << " [file|--cleanup] [arguments]\n";
+        cerr << "usage: " << argv[0] << " [file|--cleanup|--version] [arguments]\n";
         return 1;
     }
     if (string(argv[1]) == "--cleanup")
     {
         cleanup();
+        return 0;
+    }
+    if (string(argv[1]) == "--version")
+    {
+        cout << "compilescript " << global::version << endl <<
+            "Copyright (C) 2018, 2019 tastytea <tastytea@tastytea.de>\n"
+            "License GPLv3: GNU GPL version 3 <https://www.gnu.org/licenses/gpl-3.0.html>.\n"
+            "This is free software: you are free to change and redistribute it.\n"
+            "There is NO WARRANTY, to the extent permitted by law.\n";
         return 0;
     }
 
