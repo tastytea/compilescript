@@ -1,72 +1,75 @@
+= compilescript
+
 **compilescript** allows you to execute files from compiled languages as
-scripts. By default it uses g++.
+scripts. By default it uses `g++`.
 
 It compiles the source file, stores the binary in
 `${XDG_CACHE_HOME}/compilescript/` and executes it. If the binary in cache is
 newer than the source file, the compilation is skipped.
 
-## Usage
+== Usage
 
-Have a look at the [manpage](https://schlomp.space/tastytea/compilescript/src/branch/master/compilescript.1.adoc).
+Have a look at the https://schlomp.space/tastytea/compilescript/src/branch/master/compilescript.1.adoc[manpage].
 
-## Install
+== Install
 
-### Gentoo
+=== Gentoo
 
 Gentoo ebuilds are available via my
-[repository](https://schlomp.space/tastytea/overlay).
+https://schlomp.space/tastytea/overlay[repository].
 
-### From source
+=== From source
 
-#### Dependencies
+==== Dependencies
 
-* C++ compiler (tested: [gcc](https://gcc.gnu.org/) 5/6/7/8,
-  [clang](https://llvm.org/) 3/5/6)
-* [cmake](https://cmake.org/) (at least 3.2)
-* [libxdg-basedir](http://repo.or.cz/w/libxdg-basedir.git) (tested: 1.2)
-* [libconfig++](https://github.com/hyperrealm/libconfig) (tested: 1.5)
+* C++ compiler (tested: https://gcc.gnu.org/[gcc] 5/6/7/8,
+  https://llvm.org/[clang] 3/5/6)
+* https://cmake.org/[cmake] (at least 3.2)
+* http://repo.or.cz/w/libxdg-basedir.git[libxdg-basedir] (tested: 1.2)
+* https://github.com/hyperrealm/libconfig[libconfig++] (tested: 1.5)
 * Optional:
-    * Manpage: [asciidoc](http://asciidoc.org/) (tested: 8.6)
+    * Manpage: http://asciidoc.org/[asciidoc] (tested: 8.6)
 
-#### Get sourcecode
+==== Get sourcecode
 
 Download the current
-[release](https://schlomp.space/tastytea/compilescript/releases) and copy
-[xdgcfg](https://schlomp.space/tastytea/xdgcfg) into `xdgcfg/`
+https://schlomp.space/tastytea/compilescript/releases[release] and copy
+https://schlomp.space/tastytea/xdgcfg[xdgcfg] into `xdgcfg/`,
 
-or clone with git:
-
-```SH
+.or clone with git:
+[source,sh]
+----
 git clone https://schlomp.space/tastytea/compilescript.git
 cd compilescript
 git submodule init
 git submodule update
-```
+----
 
-#### Compile
+==== Compile
 
-```SH
+[source,sh]
+----
 mkdir build
 cd build
 cmake ..
 make
 make install
-```
+----
 
-cmake options:
+.cmake options:
 * `-DCMAKE_BUILD_TYPE=Debug` for a debug build
 * `-DWITH_MAN=NO` to not compile the manpage
 
-## Contributing
+== Contributing
 
 Contributions are always welcome. You can submit them as pull requests or via
 email to `tastytea`@`tastytea.de`.
 
-## License & Copyright
+== License & Copyright
 
-```PLAIN
+----
 Copyright © 2018, 2019 tastytea <tastytea@tastytea.de>.
 License GPLv3: GNU GPL version 3 <https://www.gnu.org/licenses/gpl-3.0.html>.
 This program comes with ABSOLUTELY NO WARRANTY. This is free software,
 and you are welcome to redistribute it under certain conditions.
-```
+----
