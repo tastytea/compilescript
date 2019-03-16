@@ -1,7 +1,7 @@
 = compilescript
 
-**compilescript** allows you to execute files from compiled languages as
-scripts. By default it uses `g++`.
+*compilescript* allows you to execute files from compiled languages as scripts.
+By default it uses `g++`.
 
 It compiles the source file, stores the binary in
 `${XDG_CACHE_HOME}/compilescript/` and executes it. If the binary in cache is
