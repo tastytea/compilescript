@@ -135,7 +135,8 @@ int main(int argc, char *argv[])
 
     if (argc <= 1)
     {
-        cerr << "usage: " << argv[0] << " [file|--cleanup|--version] [arguments]\n";
+        cerr << "usage: " << argv[0] <<
+            " [file|--cleanup|--version] [arguments]\n";
         return 1;
     }
     if (string(argv[1]) == "--cleanup")
@@ -212,8 +213,9 @@ int main(int argc, char *argv[])
             return 1;
         }
 
-        int ret = std::system((compiler + " " + source.string() + " "
-                      + compiler_arguments + " -o " + binary.string()).c_str());
+        int ret = std::system((compiler + " " + source.string() + " " +
+                               compiler_arguments +
+                               " -o " + binary.string()).c_str());
         if (ret != 0)
         {
             cerr << "ERROR: Compilation failed.\n";
