@@ -1,7 +1,8 @@
 = compilescript(1)
+:doctype:       manpage
 :Author:        tastytea
 :Email:         tastytea@tastytea.de
-:Date:          2019-01-25
+:Date:          2019-04-12
 :Revision:      0.0.0
 :man source:    compilescript
 :man version:   {revision}
@@ -35,11 +36,11 @@ The compiler invocation looks like this: <configured compiler> <source file>
 
 == OPTIONS
 
-[frame="none",grid="none"]
-|===
-|*--cleanup* | Delete old cache files (older than +clean_after_hours+).
-|*--version* | Print version, copyright and license.
-|===
+*--cleanup*::
+    Delete old cache files (older than +clean_after_hours+).
+
+*--version*::
+    Print version, copyright and license.
 
 == EXAMPLES
 
@@ -72,11 +73,8 @@ cache_dir = "/home/user/.cache/compilescript";
 
 == FILES
 
-[format="csv",frame="none",grid="none",cols=">,<"]
-|======
-Configuration file:,`${XDG_CONFIG_HOME}/compilescript.cfg`
-Cache:,`${XDG_CACHE_HOME}/compilescript/`
-|======
+- *Configuration file*: `${XDG_CONFIG_HOME}/compilescript.cfg`
+- *Cache*: `${XDG_CACHE_HOME}/compilescript/`
 
 `${XDG_CONFIG_HOME}` is usually `~/.config` and `${XDG_CACHE_HOME}` is usually
 `~/.cache`.
