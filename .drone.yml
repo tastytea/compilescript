@@ -210,7 +210,7 @@ clone:
 steps:
 - name: notify
   image: drillster/drone-email
-  pull: true
+  pull: always
   settings:
     host: cryptoparty-celle.de
     from: drone@tzend.de
