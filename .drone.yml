@@ -204,6 +204,11 @@ depends_on:
   - always
   - on_push
 
+trigger:
+  status:
+  - success
+  - failure
+
 clone:
   disable: true
 
