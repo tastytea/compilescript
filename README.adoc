@@ -22,8 +22,8 @@ https://schlomp.space/tastytea/overlay[repository].
 
 ==== Dependencies
 
-* C++ compiler (tested: https://gcc.gnu.org/[gcc] 5/6/7/8,
-  https://llvm.org/[clang] 3/5/6)
+* C++ compiler (tested: https://gcc.gnu.org/[gcc] 5/6/8/9,
+  https://llvm.org/[clang] 3/6)
 * https://cmake.org/[cmake] (at least 3.2)
 * http://repo.or.cz/w/libxdg-basedir.git[libxdg-basedir] (tested: 1.2)
 * https://github.com/hyperrealm/libconfig[libconfig++] (tested: 1.5)
