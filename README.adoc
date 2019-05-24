@@ -1,6 +1,6 @@
 = compilescript
 
-*compilescript* allows you to execute files from compiled languages as scripts.
+*compilescript* allows you to execute files from compiled languages like scripts.
 By default it uses `g++`.
 
 It compiles the source file, stores the binary in
