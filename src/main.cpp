@@ -14,11 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if __cplusplus >= 201703L
-    #include <filesystem>
-#else
-    #include <experimental/filesystem>
-#endif
+#include <experimental/filesystem>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -31,11 +27,7 @@
 #include "xdgcfg.hpp"
 #include "version.hpp"
 
-#if __cplusplus >= 201703L
-    namespace fs = std::filesystem;
-#else
-    namespace fs = std::experimental::filesystem;
-#endif
+namespace fs = std::experimental::filesystem;
 using std::cout;
 using std::cerr;
 using std::endl;
