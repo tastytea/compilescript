@@ -9,7 +9,7 @@ newer than the source file, the compilation is skipped.
 
 == Usage
 
-Have a look at the https://schlomp.space/tastytea/compilescript/src/branch/master/compilescript.1.adoc[manpage].
+Have a look at the https://schlomp.space/tastytea/compilescript/src/branch/main/man/compilescript.1.adoc[manpage].
 
 == Install
 
