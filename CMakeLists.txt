@@ -1,50 +1,47 @@
-cmake_minimum_required (VERSION 3.2)
-project(compilescript
-        VERSION 0.4.0
-        LANGUAGES CXX
-)
+# Support version 3.6 and above, but use policy settings up to 3.14.
+# 3.6 is needed because of IMPORTED_TARGET in pkg_check_modules().
+cmake_minimum_required(VERSION 3.6...3.14)
+# Ranges are supported from 3.12, set policy to current for < 3.12.
+if(${CMAKE_VERSION} VERSION_LESS 3.12)
+  cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
+endif()
 
-include(GNUInstallDirs)
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(LIBXDG_BASEDIR REQUIRED libxdg-basedir)
-pkg_check_modules(LIBCONFIG REQUIRED libconfig++)
+project(compilescript
+  VERSION 0.4.0
+  LANGUAGES CXX)
+# DESCRIPTION was introduced in version 3.9.
+if(NOT (${CMAKE_VERSION} VERSION_LESS 3.9))
+  set(PROJECT_DESCRIPTION
+    "Execute source files from compiled languages as scripts.")
+endif()
+
+option(WITH_MAN "Compile and install manpage." YES)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_CXX_FLAGS_DEBUG
-    "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Wpedantic -ftrapv -fsanitize=undefined -g -Og -fno-omit-frame-pointer")
+set(DEBUG_CXXFLAGS
+  "-Wall"
+  "-Wextra"
+  "-Wpedantic"
+  "-ftrapv"
+  "-fsanitize=undefined"
+  "-g"
+  "-Og"
+  "-fno-omit-frame-pointer")
+set(DEBUG_LDFLAGS
+  "-fsanitize=undefined")
+add_compile_options("$<$<CONFIG:Debug>:${DEBUG_CXXFLAGS}>")
+# add_link_options was introduced in version 3.13.
+if(${CMAKE_VERSION} VERSION_LESS 3.13)
+  set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${DEBUG_LDFLAGS}")
+else()
+  add_link_options("$<$<CONFIG:Debug>:${DEBUG_LDFLAGS}>")
+endif()
 
-include_directories(${PROJECT_BINARY_DIR})
-include_directories(${LIBXDG_BASEDIR_INCLUDE_DIRS})
-include_directories(${LIBCONFIG_INCLUDE_DIRS})
+add_subdirectory(src)
 
-link_directories(${LIBXDG_BASEDIR_LIBRARY_DIRS})
-link_directories(${LIBCONFIG_LIBRARY_DIRS})
-
-# Write version in header
-configure_file(
-    "${PROJECT_SOURCE_DIR}/src/version.hpp.in"
-    "${PROJECT_BINARY_DIR}/version.hpp"
-)
-
-file(GLOB sources src/*.cpp)
-add_executable(${CMAKE_PROJECT_NAME} "${sources}")
-target_link_libraries(${CMAKE_PROJECT_NAME}
-                      "${LIBXDG_BASEDIR_LDFLAGS} ${LIBCONFIG_LDFLAGS}"
-                      "-lstdc++fs")
-install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
-
-set(WITH_MAN "YES" CACHE STRING "WITH_MAN defaults to \"YES\"")
 if (WITH_MAN)
-    add_custom_command(OUTPUT "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1"
-                       WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
-                       DEPENDS "${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.1.adoc"
-                       COMMAND ${CMAKE_SOURCE_DIR}/build_manpage.sh
-                       ARGS ${PROJECT_VERSION})
-    add_custom_target(run ALL
-                      DEPENDS "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1")
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.1
-            DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+  add_subdirectory(man)
 endif()

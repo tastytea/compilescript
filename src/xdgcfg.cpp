@@ -1,1 +1,0 @@
-../xdgcfg/src/xdgcfg.cpp
