@@ -49,9 +49,15 @@ private:
 public:
     Compilescript();
 
+    //! Read settings and set member variables.
     void read_settings();
+    //! Remove files older than `_clean_after_hours` from the cache.
     void cleanup();
-    bool compile(const string &filename, char *argv[]);
+    //! Compile `filename` if necessary and return filename of binary.
+    string compile(const string &filename);
+    //! Run binary. Pass original `argv`, the 1st entry is ignored.
+    void run(const string &filename, char *argv[]);
+    //! Print version, copyright and license.
     void print_version();
 };
 
@@ -139,7 +145,7 @@ void Compilescript::cleanup()
     }
 }
 
-bool Compilescript::compile(const string &filename, char *argv[])
+string Compilescript::compile(const string &filename)
 {
     const fs::path original = fs::canonical(filename);
     const fs::path source = _cache_dir / original;
@@ -194,14 +200,14 @@ bool Compilescript::compile(const string &filename, char *argv[])
             }
             else
             {
-                cerr << "ERROR: Could not open file: " << source << endl;
-                return false;
+                throw std::runtime_error("Could not open file: "
+                                         + source.string());
             }
         }
         else
         {
-            cerr << "ERROR: Could not open file: " << original << endl;
-            return false;
+            throw std::runtime_error("Could not open file: "
+                                     + original.string());
         }
 
         const string command = _compiler + " " + source.string() + " "
@@ -209,14 +215,16 @@ bool Compilescript::compile(const string &filename, char *argv[])
         int ret = std::system(command.c_str()); // NOLINT Doesn't apply here.
         if (ret != 0)
         {
-            cerr << "ERROR: Compilation failed.\n";
-            return false;
+            throw std::runtime_error("Compilation failed.");
         }
     }
 
-    execvp(binary.c_str(), &argv[1]); // NOLINT We know that argv[1] exists.
+    return binary.string();
+}
 
-    return true;
+void Compilescript::run(const string &filename, char *argv[])
+{
+    execvp(filename.c_str(), &argv[1]); // NOLINT We know that argv[1] exists.
 }
 
 void Compilescript::print_version()
@@ -233,29 +241,30 @@ int main(int argc, char *argv[])
 {
     const vector<string> args(argv, argv + argc);
 
-    Compilescript App;
-    App.read_settings();
-
-    if (args.size() <= 1)
-    {
-        cerr << "usage: " << args[0]
-             << " [file|--cleanup|--version] [arguments]\n";
-        return 1;
-    }
-    if (args[1] == "--cleanup")
-    {
-        App.cleanup();
-        return 0;
-    }
-    if (args[1] == "--version")
-    {
-        App.print_version();
-        return 0;
-    }
-
     try
     {
-        App.compile(args[1], argv);
+        Compilescript App;
+        App.read_settings();
+
+        if (args.size() <= 1)
+        {
+            cerr << "usage: " << args[0]
+                 << " [file|--cleanup|--version] [arguments]\n";
+            return 1;
+        }
+        if (args[1] == "--cleanup")
+        {
+            App.cleanup();
+            return 0;
+        }
+        if (args[1] == "--version")
+        {
+            App.print_version();
+            return 0;
+        }
+
+        const string binary = App.compile(args[1]);
+        App.run(binary, argv);
     }
     catch (const std::exception &e)
     {
