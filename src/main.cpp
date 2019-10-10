@@ -212,7 +212,7 @@ string Compilescript::compile(const string &filename)
 
         const string command = _compiler + " " + source.string() + " "
             + compiler_arguments + " -o " + binary.string();
-        int ret = std::system(command.c_str()); // NOLINT Doesn't apply here.
+        int ret = std::system(command.c_str()); // NOLINT(cert-env33-c)
         if (ret != 0)
         {
             throw std::runtime_error("Compilation failed.");
@@ -224,7 +224,9 @@ string Compilescript::compile(const string &filename)
 
 void Compilescript::run(const string &filename, char *argv[])
 {
-    execvp(filename.c_str(), &argv[1]); // NOLINT We know that argv[1] exists.
+    // We know that argv[1] exists.
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    execvp(filename.c_str(), &argv[1]);
 }
 
 void Compilescript::print_version()
