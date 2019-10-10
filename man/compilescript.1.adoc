@@ -2,7 +2,7 @@
 :doctype:       manpage
 :Author:        tastytea
 :Email:         tastytea@tastytea.de
-:Date:          2019-10-01
+:Date:          2019-10-10
 :Revision:      0.0.0
 :man source:    compilescript
 :man version:   {revision}
@@ -39,6 +39,9 @@ The compiler invocation looks like this: <configured compiler> <source file>
 *--cleanup*::
     Delete old cache files. You can configure the timespan after which a file is
     considered old with the config option _clean_after_hours_.
+
+*--compiler* _command_::
+    Override compiler command. Note that *--compiler*=_command_ does NOT work.
 
 *--version*::
     Print version, copyright and license.
