@@ -25,6 +25,7 @@
 #include <experimental/filesystem>
 #include <fstream>
 #include <iostream>
+#include <regex>
 #include <string>
 #include <system_error>
 #include <vector>
@@ -171,18 +172,11 @@ string Compilescript::compile(const string &filename)
                 }
 
                 std::getline(in, buf);
-                if (buf.substr(0, 17) == "// compilescript:")
+                const std::regex re("^(//|#|;) ?compilescript:");
+                std::smatch match;
+                if (std::regex_search(buf, match, re))
                 {
-                    compiler_arguments = buf.substr(17);
-                }
-                else if (buf.substr(0, 16) == "//compilescript:")
-                {
-                    compiler_arguments = buf.substr(16);
-                }
-                else if ((buf.substr(0, 15) == "#compilescript:") ||
-                         (buf.substr(0, 15) == ";compilescript:"))
-                {
-                    compiler_arguments = buf.substr(15);
+                    compiler_arguments = match.suffix();
                 }
                 else
                 {
