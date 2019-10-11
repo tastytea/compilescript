@@ -25,6 +25,7 @@
 #include <experimental/filesystem>
 #include <fstream>
 #include <iostream>
+#include <regex>
 #include <string>
 #include <system_error>
 #include <vector>
@@ -59,6 +60,8 @@ public:
     void run(const string &filename, char *argv[]);
     //! Print version, copyright and license.
     void print_version();
+    //! Set compiler command.
+    void set_compiler(const string &command);
 };
 
 Compilescript::Compilescript()
@@ -171,18 +174,11 @@ string Compilescript::compile(const string &filename)
                 }
 
                 std::getline(in, buf);
-                if (buf.substr(0, 17) == "// compilescript:")
+                const std::regex re("^(//|#|;) ?compilescript:");
+                std::smatch match;
+                if (std::regex_search(buf, match, re))
                 {
-                    compiler_arguments = buf.substr(17);
-                }
-                else if (buf.substr(0, 16) == "//compilescript:")
-                {
-                    compiler_arguments = buf.substr(16);
-                }
-                else if ((buf.substr(0, 15) == "#compilescript:") ||
-                         (buf.substr(0, 15) == ";compilescript:"))
-                {
-                    compiler_arguments = buf.substr(15);
+                    compiler_arguments = match.suffix();
                 }
                 else
                 {
@@ -212,7 +208,7 @@ string Compilescript::compile(const string &filename)
 
         const string command = _compiler + " " + source.string() + " "
             + compiler_arguments + " -o " + binary.string();
-        int ret = std::system(command.c_str()); // NOLINT Doesn't apply here.
+        int ret = std::system(command.c_str()); // NOLINT(cert-env33-c)
         if (ret != 0)
         {
             throw std::runtime_error("Compilation failed.");
@@ -224,7 +220,7 @@ string Compilescript::compile(const string &filename)
 
 void Compilescript::run(const string &filename, char *argv[])
 {
-    execvp(filename.c_str(), &argv[1]); // NOLINT We know that argv[1] exists.
+    execvp(filename.c_str(), argv);
 }
 
 void Compilescript::print_version()
@@ -235,6 +231,11 @@ void Compilescript::print_version()
         "<https://www.gnu.org/licenses/gpl-3.0.html>.\n"
         "This program comes with ABSOLUTELY NO WARRANTY. This is free software,"
         "\nand you are welcome to redistribute it under certain conditions.\n";
+}
+
+void Compilescript::set_compiler(const string &command)
+{
+    _compiler = command;
 }
 
 int main(int argc, char *argv[])
@@ -249,7 +250,8 @@ int main(int argc, char *argv[])
         if (args.size() <= 1)
         {
             cerr << "usage: " << args[0]
-                 << " [file|--cleanup|--version] [arguments]\n";
+                 << " [file|--cleanup|--version|--compiler command] "
+                 << "[arguments]\n";
             return 1;
         }
         if (args[1] == "--cleanup")
@@ -262,9 +264,25 @@ int main(int argc, char *argv[])
             App.print_version();
             return 0;
         }
+        if (args[1] == "--compiler")
+        {
+            if (args.size() <= 3)
+            {
+                cerr << "Error: You need to specify a command.\n";
+                return 1;
+            }
+            App.set_compiler(args[2]);
+            const string binary = App.compile(args[3]);
+            // We know that argv[3] exists.
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+            App.run(binary, &argv[3]);
+            return 0;
+        }
 
         const string binary = App.compile(args[1]);
-        App.run(binary, argv);
+        // We know that argv[1] exists.
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+        App.run(binary, &argv[1]);
     }
     catch (const std::exception &e)
     {
